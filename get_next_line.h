@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:02:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/04/12 17:02:36 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/04/12 22:08:52 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ typedef struct fd_list
 }					t_fd_list;
 
 char	*get_next_line(int fd);
-void	check_fd(int fd, char *remains, int *len_rem, int *len_read, t_fd_list *list);
-void	free_node_if_empty(int fd, t_fd_list **list);
-char	*line_and_remains(char **remains, int *len_rem);
-void	read_fd(int fd, char **remains, int *len_rem, int *len_read);
+t_fd_list	*check_fd(int fd, t_fd_list *list);
+void	free_node_if_empty(int fd, t_fd_list *cursor);
+char	*line_and_remains(t_fd_list *cursor);
+void	read_fd(int fd, t_fd_list *cursor);
 
 void	*ft_realloc(void *ptr, size_t size);
 size_t	check_len(char *s, char c);
