@@ -6,13 +6,13 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:03:12 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/04/12 17:02:29 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/04/13 17:32:52 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-void	*ft_realloc(void *ptr, size_t size)
+char	*ft_realloc(void *ptr, size_t size)
 {
 	void	*new_ptr;
 	char	*src;
@@ -41,33 +41,54 @@ size_t	check_len(char *s, char c)
 	int	i;
 
 	i = 0;
-	while (s[i])
+	if (c == 0)
 	{
-		if (s[i] == c)
-			return (i);
+		while (s[i] != '\0')
+			i++;
+	}
+	else
+	{
+		while (s[i] && s[i] != '\n')
+			i++;
+		i++;
+	}
+	return (i);
+}
+
+int		find_n(char *s)
+{
+	int	i;
+
+	if (!s)
+		return (0);
+	i = 0;
+	while (s[i] != '\0')
+	{
+		if (s[i] == '\n')
+			return (1);
 		i++;
 	}
 	return (0);
 }
 
-void	ft_strljoin(char *dst, const char *src, size_t dstsize, int action)
+void	ft_strljoin(char *dst, const char *src, size_t dstsize, int c)
 {
 	size_t	i;
 	size_t	j;
 	size_t	dstlen;
 
-	dstlen = check_len(dst, '\0');
+	dstlen = check_len(dst, c);
 	i = 0;
 	j = dstlen;
-	if (action == 1)
+	if (c == '\0')
 	{
-		while (src[i] != 0 && i < (dstsize - dstlen - 1))
+		while (src[i] != '\0' && i < (dstsize - dstlen - 1))
 		{
 			dst[j] = (char)src[i];
 			i++;
 			j++;
 		}
-			dst[j] = '\0';
+		dst[j] = '\0';
 	}
 	else
 	{
@@ -79,5 +100,3 @@ void	ft_strljoin(char *dst, const char *src, size_t dstsize, int action)
 		dst[i] = '\0';
 	}
 }
-
-
