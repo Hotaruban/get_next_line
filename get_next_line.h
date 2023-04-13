@@ -6,13 +6,17 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:02:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/04/13 17:33:24 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/04/13 21:04:03 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef GET_NEXT_LINE_H
 # define GET_NEXT_LINE_H
-#define BUFFER_SIZE 5
+
+# ifndef BUFFER_SIZE
+#  define BUFFER_SIZE 5
+# endif
+
 # include <stdio.h>
 # include <fcntl.h>
 # include <stdlib.h>

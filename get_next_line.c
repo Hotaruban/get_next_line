@@ -6,12 +6,11 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:03:16 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/04/13 17:36:17 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/04/13 21:17:29 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <stdio.h>
 
 /*
 The function get_next_line will return a line read from a file descriptor one
@@ -74,15 +73,19 @@ void	free_node_if_empty(int fd, t_fd_list *cursor)
 char	*line_and_remains(t_fd_list *cursor)
 {
 	char	*line;
-	int		i;
+	int		len_nl;
 
-	line = malloc(sizeof(char) * cursor->len_rem);
+	len_nl = (check_len(cursor->remains, 1) + 1);
+	if (len_nl == 0)
+		return (NULL);
+	line = malloc(sizeof(char) * len_nl);
 	if (line == NULL)
 		return (NULL);
-	i = check_len(cursor->remains, 1);
-	ft_strljoin(line, cursor->remains, i, 1);
-	ft_strljoin(cursor->remains, &cursor->remains[i], cursor->len_rem, 1);
-	cursor->len_rem -= i;
+	ft_strljoin(line, cursor->remains, len_nl, 1);
+	ft_strljoin(cursor->remains, &cursor->remains[len_nl], cursor->len_rem, 1);
+	cursor->len_rem -= len_nl;
+//	printf("%d len_rem\n", cursor->len_rem);
+//	printf("%d len_nl\n", len_nl);
 	cursor->remains = ft_realloc(cursor->remains, cursor->len_rem);
 	return (line);
 }
@@ -97,7 +100,7 @@ void	read_fd(int fd, t_fd_list *cursor)
 	while (cursor->len_read > 0)
 	{
 		cursor->len_read = (int)read(fd, buf, BUFFER_SIZE);
-		if ((cursor->len_read) == -1)
+		if ((cursor->len_read) == -1 || (cursor->len_read == 0 && !cursor->remains))
 		{
 			free(buf);
 			return ;
@@ -121,12 +124,15 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (0);
 	cursor = check_fd(fd, list);
-	printf("%p <- remains out\n", cursor->remains);
-	printf("%d <- len_rem\n", cursor->len_rem);
 	if (cursor->len_read > 0)
 		read_fd(fd, cursor);
+	if (!cursor->remains)
+	{
+		free_node_if_empty(fd, cursor);
+		return (NULL);
+	}
 	line = line_and_remains(cursor);
-	if (cursor->len_read == 0 && cursor->len_rem == 0)
+	if (cursor->len_read == 0 && cursor->len_rem == 0 && line == 0)
 	{
 		free_node_if_empty(fd, cursor);
 		return (NULL);
@@ -141,8 +147,10 @@ int	main(void)
 	int		fd;
 	char	*line;
 	int		i;
+	int		d;
 
 	line = NULL;
+	d = 0;
 	fd = open("text.txt", O_RDONLY);
 	if (fd == -1)
     {
@@ -150,12 +158,14 @@ int	main(void)
         return (1);
     }
 	i = 0;
-	while (i < 4)
+	while (1)
 	{
 		line = get_next_line(fd);
 		if (line == NULL)
 			break;
-		printf("%d <- charactere print\n", printf("%s\n", line));
+		d = printf("%s", line);
+//		printf("\n");
+		printf("NB char -- > %d\n", d);
 		free(line);
 		i++;
 	}
