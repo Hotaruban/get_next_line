@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:03:16 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/04/14 23:10:19 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/04/15 00:11:04 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,36 +137,3 @@ char	*get_next_line(int fd)
 	}
 	return (line);
 }
-
-//int	main(void)
-//{
-//	int		fd;
-//	char	*line;
-//	int		i;
-//	int		d;
-
-//	line = NULL;
-//	d = 0;
-//	fd = open("tripouille/files/empty", O_RDONLY);
-//	if (fd == -1)
-//    {
-//        perror("Error opening file");
-//        return (1);
-//    }
-//	i = 0;
-//	while (1)
-//	{
-//		line = get_next_line(fd);
-//		if (line == NULL)
-//		{
-//			printf("BREAK MAIN\n");
-//			break;
-//		}
-//		d = printf("MAIN -> %s", line);
-////		printf("_________\n");
-////		printf("NB char -- > %d\n", d);
-//		free(line);
-//		i++;
-//	}
-//	return (0);
-//}
