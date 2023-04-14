@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:03:16 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/04/14 23:10:19 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/04/14 23:01:57 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_bonus.h"
 
 /*
 The function get_next_line will return a line read from a file descriptor one
@@ -141,20 +141,95 @@ char	*get_next_line(int fd)
 //int	main(void)
 //{
 //	int		fd;
+//	//int		fd0;
+//	//int		fd1;
+//	//int		fd2;
+//	//int		fd3;
 //	char	*line;
 //	int		i;
 //	int		d;
 
 //	line = NULL;
 //	d = 0;
+//	//fd0 = open("tripouille/files/41_with_nl", O_RDONLY);
+//	//fd1 = open("tripouille/files/42_with_nl", O_RDONLY);
+//	//fd2 = open("tripouille/files/43_with_nl", O_RDONLY);
+//	//fd3 = open("tripouille/files/nl", O_RDONLY);
+
 //	fd = open("tripouille/files/empty", O_RDONLY);
 //	if (fd == -1)
 //    {
 //        perror("Error opening file");
 //        return (1);
 //    }
+//	//if (fd0 == -1 || fd1 == -1 || fd2 == -1 || fd3 == -1)
+//    //{
+//    //    perror("Error opening file");
+//    //    return (1);
+//    //}
 //	i = 0;
-//	while (1)
+//	//printf("--------------- START MAIN fd0\n");
+//	//line = get_next_line(fd0);
+//	//d = printf("MAIN fd0 -> %s\n", line);
+//	//printf("NB char -- > %d\n", d);
+//	//free(line);
+//	//printf("--------------- START MAIN fd1\n");
+//	//line = get_next_line(fd1);
+//	//d = printf("MAIN fd1 -> %s\n", line);
+//	//printf("NB char -- > %d\n", d);
+//	//free(line);
+//	//printf("--------------- START MAIN fd2\n");
+//	//line = get_next_line(fd2);
+//	//d = printf("MAIN fd2 -> %s\n", line);
+//	//printf("NB char -- > %d\n", d);
+//	//free(line);
+//	//printf("--------------- START MAIN fd0\n");
+//	//line = get_next_line(fd0);
+//	//d = printf("MAIN fd0 -> %s\n", line);
+//	//printf("NB char -- > %d\n", d);
+//	//free(line);
+//	//printf("--------------- START MAIN fd1\n");
+//	//line = get_next_line(fd1);
+//	//d = printf("MAIN fd1 -> %s\n", line);
+//	//printf("NB char -- > %d\n", d);
+//	//free(line);
+//	//printf("--------------- START MAIN fd2\n");
+//	//line = get_next_line(fd2);
+//	//d = printf("MAIN fd2 -> %s\n", line);
+//	//printf("NB char -- > %d\n", d);
+//	//free(line);
+//	//printf("--------------- START MAIN fd0\n");
+//	//line = get_next_line(fd0);
+//	//d = printf("MAIN fd0 -> %s\n", line);
+//	//printf("NB char -- > %d\n", d);
+//	//free(line);
+//	//printf("--------------- START MAIN fd1\n");
+//	//line = get_next_line(fd1);
+//	//d = printf("MAIN fd1 -> %s\n", line);
+//	//printf("NB char -- > %d\n", d);
+//	//free(line);
+//	//printf("--------------- START MAIN fd2\n");
+//	//line = get_next_line(fd2);
+//	//d = printf("MAIN fd2 -> %s\n", line);
+//	//printf("NB char -- > %d\n", d);
+//	//free(line);
+//	//printf("--------------- START MAIN fd3\n");
+//	//line = get_next_line(fd3);
+//	//d = printf("MAIN fd3 -> %s\n", line);
+//	//printf("NB char -- > %d\n", d);
+//	//free(line);
+//	//printf("--------------- START MAIN fd3\n");
+//	//line = get_next_line(fd3);
+//	//d = printf("MAIN fd3 -> %s\n", line);
+//	//printf("NB char -- > %d\n", d);
+//	//free(line);
+//	//printf("--------------- START MAIN fd3\n");
+//	//line = get_next_line(fd3);
+//	//d = printf("MAIN fd3 -> %s\n", line);
+//	//printf("NB char -- > %d\n", d);
+//	//free(line);
+
+//	while (i < 4)
 //	{
 //		line = get_next_line(fd);
 //		if (line == NULL)
@@ -162,9 +237,9 @@ char	*get_next_line(int fd)
 //			printf("BREAK MAIN\n");
 //			break;
 //		}
-//		d = printf("MAIN -> %s", line);
-////		printf("_________\n");
-////		printf("NB char -- > %d\n", d);
+//		d = printf("MAIN -> %s\n", line);
+//		printf("_________\n");
+//		printf("NB char -- > %d\n", d);
 //		free(line);
 //		i++;
 //	}
