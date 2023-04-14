@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:03:16 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/04/13 21:17:29 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/04/14 16:51:54 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ or creat the node.
 Free_node_if_empty free the node of the fd after read and return every line.
 Line_and_remains change the remains and the len_rem, and finaly return the line.
 Read_fd read the file descriptor and copy every buf in remains.
+truncate -s -1 text
 */
 
 t_fd_list	*check_fd(int fd, t_fd_list *current)
@@ -64,7 +65,9 @@ void	free_node_if_empty(int fd, t_fd_list *cursor)
 		if (prev == NULL)
 			prev = current->next;
 		else
+		{
 			prev->next = current->next;
+		}
 		free(current->remains);
 		free(current);
 	}
@@ -75,17 +78,15 @@ char	*line_and_remains(t_fd_list *cursor)
 	char	*line;
 	int		len_nl;
 
-	len_nl = (check_len(cursor->remains, 1) + 1);
-	if (len_nl == 0)
+	len_nl = (check_len(cursor->remains, 1));
+	cursor->len_rem -= len_nl;
+	if (check_len(cursor->remains, 0) == 0)
 		return (NULL);
 	line = malloc(sizeof(char) * len_nl);
 	if (line == NULL)
 		return (NULL);
-	ft_strljoin(line, cursor->remains, len_nl, 1);
+	ft_strljoin(line, cursor->remains, len_nl + 1, 1);
 	ft_strljoin(cursor->remains, &cursor->remains[len_nl], cursor->len_rem, 1);
-	cursor->len_rem -= len_nl;
-//	printf("%d len_rem\n", cursor->len_rem);
-//	printf("%d len_nl\n", len_nl);
 	cursor->remains = ft_realloc(cursor->remains, cursor->len_rem);
 	return (line);
 }
@@ -100,7 +101,7 @@ void	read_fd(int fd, t_fd_list *cursor)
 	while (cursor->len_read > 0)
 	{
 		cursor->len_read = (int)read(fd, buf, BUFFER_SIZE);
-		if ((cursor->len_read) == -1 || (cursor->len_read == 0 && !cursor->remains))
+		if (cursor->len_read <= 0)
 		{
 			free(buf);
 			return ;
@@ -122,15 +123,10 @@ char	*get_next_line(int fd)
 	char				*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
-		return (0);
+		return (NULL);
 	cursor = check_fd(fd, list);
 	if (cursor->len_read > 0)
 		read_fd(fd, cursor);
-	if (!cursor->remains)
-	{
-		free_node_if_empty(fd, cursor);
-		return (NULL);
-	}
 	line = line_and_remains(cursor);
 	if (cursor->len_read == 0 && cursor->len_rem == 0 && line == 0)
 	{
@@ -141,34 +137,37 @@ char	*get_next_line(int fd)
 	return (line);
 }
 
-/*
-int	main(void)
-{
-	int		fd;
-	char	*line;
-	int		i;
-	int		d;
 
-	line = NULL;
-	d = 0;
-	fd = open("text.txt", O_RDONLY);
-	if (fd == -1)
-    {
-        perror("Error opening file");
-        return (1);
-    }
-	i = 0;
-	while (1)
-	{
-		line = get_next_line(fd);
-		if (line == NULL)
-			break;
-		d = printf("%s", line);
-//		printf("\n");
-		printf("NB char -- > %d\n", d);
-		free(line);
-		i++;
-	}
-	return (0);
-}
-*/
+//int	main(void)
+//{
+//	int		fd;
+//	char	*line;
+//	int		i;
+//	int		d;
+
+//	line = NULL;
+//	d = 0;
+//	fd = open("tripouille/files/empty", O_RDONLY);
+//	if (fd == -1)
+//    {
+//        perror("Error opening file");
+//        return (1);
+//    }
+//	i = 0;
+//	while (1)
+//	{
+//		line = get_next_line(fd);
+//		if (line == NULL)
+//		{
+//			printf("BREAK MAIN\n");
+//			break;
+//		}
+//		d = printf("MAIN -> %s", line);
+////		printf("_________\n");
+////		printf("NB char -- > %d\n", d);
+//		free(line);
+//		i++;
+//	}
+//	return (0);
+//}
+
