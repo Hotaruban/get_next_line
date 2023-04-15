@@ -6,11 +6,19 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:03:12 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/04/14 22:58:29 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/04/16 00:43:08 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
+
+/*
+Ft_realloc reallocate memory to the pointeur of size.
+Check_len count the len of the string depending of parameter 0 for find '\0'
+and 1 for '\n'.
+Find_n find the '\n' in a string.
+Ft_strljoin concatenate if the parameter action = 0 or copy if he is not.
+*/
 
 char	*ft_realloc(void *ptr, size_t size)
 {
@@ -27,7 +35,10 @@ char	*ft_realloc(void *ptr, size_t size)
 	}
 	new_ptr = malloc(size);
 	if (new_ptr == NULL)
+	{
+		free (ptr);
 		return (NULL);
+	}
 	src = (char *)ptr;
 	dst = (char *)new_ptr;
 	while (size--)
