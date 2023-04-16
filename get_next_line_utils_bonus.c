@@ -6,25 +6,17 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:03:12 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/04/16 00:43:08 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/04/14 22:58:29 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
 
-/*
-Ft_realloc reallocate memory to the pointeur of size.
-Check_len count the len of the string depending of parameter 0 for find '\0'
-and 1 for '\n'.
-Find_n find the '\n' in a string.
-Ft_strljoin concatenate if the parameter action = 0 or copy if he is not.
-*/
-
-char	*ft_realloc(void *ptr, size_t size)
+void	*ft_realloc(void *ptr, size_t old_size, size_t size)
 {
-	void	*new_ptr;
-	char	*src;
-	char	*dst;
+	void			*new_ptr;
+	unsigned char	*src;
+	unsigned char	*dst;
 
 	if (ptr == NULL)
 		return (malloc(size));
@@ -36,18 +28,20 @@ char	*ft_realloc(void *ptr, size_t size)
 	new_ptr = malloc(size);
 	if (new_ptr == NULL)
 	{
-		free (ptr);
+		free(ptr);
 		return (NULL);
 	}
-	src = (char *)ptr;
-	dst = (char *)new_ptr;
+	src = (unsigned char *)ptr;
+	dst = (unsigned char *)new_ptr;
+	if (old_size <= size)
+		size = old_size;
 	while (size--)
 		*dst++ = *src++;
 	free(ptr);
 	return (new_ptr);
 }
 
-size_t	check_len(char *s, char c)
+size_t	ft_strlen(const char *s, char c)
 {
 	int	i;
 
@@ -63,7 +57,8 @@ size_t	check_len(char *s, char c)
 	{
 		while (s[i] && s[i] != '\n')
 			i++;
-		i++;
+		if (s[i] == '\n')
+			i++;
 	}
 	return (i);
 }
@@ -84,28 +79,38 @@ int	find_n(char *s)
 	return (0);
 }
 
-void	ft_strljoin(char *dst, const char *src, size_t dstsize, int c)
+void	ft_strlcat(char *dst, const char *src, size_t dstsize)
 {
 	size_t	i;
 	size_t	j;
 	size_t	dstlen;
 
-	dstlen = check_len(dst, c);
+	dstlen = ft_strlen(dst, 0);
 	i = 0;
 	j = dstlen;
-	if (c == '\0')
+	while (src[i] != 0 && i < (dstsize - dstlen - 1))
 	{
-		while (src[i] != '\0' && i < (dstsize - dstlen - 1))
-			dst[j++] = (char)src[i++];
-		dst[j] = '\0';
+		dst[j] = src[i];
+		i++;
+		j++;
 	}
-	else
+	dst[j] = '\0';
+}
+
+void	ft_strlcpy(char *dst, const char *src, size_t dstsize)
+{
+	size_t	i;
+
+	i = 0;
+	if (src == NULL)
 	{
-		while ((src[i] != '\0') && (i != dstsize - 1))
-		{
-			dst[i] = (char)src[i];
-			i++;
-		}
-		dst[i] = '\0';
+		dst[0] = '\0';
+		return ;
 	}
+	while (src[i] != '\0' && (i != dstsize - 1))
+	{
+		dst[i] = src[i];
+		i++;
+	}
+	dst[i] = '\0';
 }

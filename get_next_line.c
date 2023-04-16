@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:03:16 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/04/16 00:42:10 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/04/16 22:31:29 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ Read_fd read the file descriptor and copy every buf in remains.
 truncate -s -1 text
 */
 
-t_fd_list	*find_node(int fd, t_fd_list **list)
+t_fd_list	*check_fd(int fd, t_fd_list **list)
 {
 	t_fd_list	*new_list;
 
@@ -45,64 +45,68 @@ t_fd_list	*find_node(int fd, t_fd_list **list)
 	return (new_list);
 }
 
-t_fd_list	*free_node_if_empty(int fd, t_fd_list **list)
+t_fd_list	*free_node_if_empty(int fd, t_fd_list **cursor)
 {
 	t_fd_list	*prev;
 	t_fd_list	*current;
 
 	prev = NULL;
-	current = *list;
+	current = *cursor;
 	while (current != NULL && current->fd != fd)
 	{
 		prev = current;
 		current = current->next;
 	}
-	if (current != NULL && current->len_rem == 0 && current->len_read == 0)
+	if (current != NULL && current->len_read == 0)
 	{
 		if (prev == NULL)
-			*list = current->next;
+			*cursor = current->next;
 		else
 			prev->next = current->next;
 		free(current->remains);
 		free(current);
 	}
-	return (*list);
+	return (*cursor);
 }
 
 char	*line_and_remains(t_fd_list *cursor)
 {
 	char	*line;
 	int		len_nl;
+	int		tmp;
 
-	len_nl = (check_len(cursor->remains, 1));
+	tmp = cursor->len_rem;
+	len_nl = (ft_strlen(cursor->remains, 1));
 	cursor->len_rem -= len_nl;
-	if (check_len(cursor->remains, 0) == 0)
+	if (ft_strlen(cursor->remains, 0) == 0)
 		return (NULL);
-	line = malloc(sizeof(char) * len_nl);
+	line = malloc(sizeof(char) * (len_nl + 1));
 	if (line == NULL)
 		return (NULL);
-	ft_strljoin(line, cursor->remains, len_nl + 1, 1);
-	ft_strljoin(cursor->remains, &cursor->remains[len_nl], cursor->len_rem, 1);
-	cursor->remains = ft_realloc(cursor->remains, cursor->len_rem);
+	ft_strlcpy(line, cursor->remains, len_nl + 1);
+	ft_strlcpy(cursor->remains, cursor->remains + len_nl, cursor->len_rem);
+	cursor->remains = ft_realloc(cursor->remains, tmp, cursor->len_rem);
 	return (line);
 }
 
 void	read_fd(int fd, t_fd_list *cursor)
 {
 	char	*buf;
+	int		tmp;
 
 	buf = malloc(sizeof(char) * (BUFFER_SIZE + 1));
 	if (buf == NULL)
 		return ;
 	while (cursor->len_read > 0)
 	{
+		tmp = cursor->len_rem;
 		cursor->len_read = (int)read(fd, buf, BUFFER_SIZE);
 		if (cursor->len_read <= 0)
 			break ;
-		buf[cursor->len_read] = '\0';
+		buf[cursor->len_read] = 0;
 		cursor->len_rem += cursor->len_read;
-		cursor->remains = ft_realloc(cursor->remains, cursor->len_rem);
-		ft_strljoin(cursor->remains, buf, cursor->len_rem, 0);
+		cursor->remains = ft_realloc(cursor->remains, tmp, cursor->len_rem);
+		ft_strlcat(cursor->remains, buf, cursor->len_rem);
 		if (find_n(cursor->remains) == 1)
 			break ;
 	}
@@ -118,21 +122,21 @@ char	*get_next_line(int fd)
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
 		return (NULL);
 	cursor = list;
-	if (!cursor)
-		cursor = find_node(fd, &list);
+	if (!list)
+		cursor = check_fd(fd, &list);
 	else
 	{
 		while (cursor != NULL && cursor->fd != fd)
 			cursor = cursor->next;
 		if (!cursor)
-			cursor = find_node(fd, &list);
+			cursor = check_fd(fd, &list);
 	}
 	if (cursor->len_read > 0)
 		read_fd(fd, cursor);
 	line = line_and_remains(cursor);
-	if (line == 0 && cursor->len_read == 0 && cursor->len_rem == 0)
+	if (cursor->len_read == 0 && line == NULL)
 	{
-		free_node_if_empty(fd, &list);
+		list = free_node_if_empty(fd, &list);
 		return (NULL);
 	}
 	return (line);
