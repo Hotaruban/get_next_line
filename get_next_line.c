@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:03:16 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/04/16 22:31:29 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/04/17 01:49:48 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,10 +134,10 @@ char	*get_next_line(int fd)
 	if (cursor->len_read > 0)
 		read_fd(fd, cursor);
 	line = line_and_remains(cursor);
-	if (cursor->len_read == 0 && line == NULL)
+	if (cursor->len_read == 0 && find_n(line) != 1)
 	{
 		list = free_node_if_empty(fd, &list);
-		return (NULL);
+		return (line);
 	}
 	return (line);
 }
