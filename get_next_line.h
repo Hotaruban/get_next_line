@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:02:25 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/04/17 12:27:52 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/04/17 12:37:33 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 
-typedef struct fd_list
+typedef struct s_fd_list
 {
 	int				fd;
 	char			*remains;
