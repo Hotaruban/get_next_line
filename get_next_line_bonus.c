@@ -6,7 +6,7 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:03:16 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/04/17 01:50:20 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/04/17 12:24:41 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,11 @@ Read_fd read the file descriptor and copy every buf in remains.
 truncate -s -1 text
 */
 
-t_fd_list	*check_fd(int fd, t_fd_list **list)
+s_fd_list	*check_fd(int fd, s_fd_list **list)
 {
-	t_fd_list	*new_list;
+	s_fd_list	*new_list;
 
-	new_list = (t_fd_list *)malloc(sizeof(t_fd_list));
+	new_list = (s_fd_list *)malloc(sizeof(s_fd_list));
 	if (new_list == NULL)
 		return (NULL);
 	new_list->fd = fd;
@@ -45,10 +45,10 @@ t_fd_list	*check_fd(int fd, t_fd_list **list)
 	return (new_list);
 }
 
-t_fd_list	*free_node_if_empty(int fd, t_fd_list **cursor)
+s_fd_list	*free_node_if_empty(int fd, s_fd_list **cursor)
 {
-	t_fd_list	*prev;
-	t_fd_list	*current;
+	s_fd_list	*prev;
+	s_fd_list	*current;
 
 	prev = NULL;
 	current = *cursor;
@@ -69,7 +69,7 @@ t_fd_list	*free_node_if_empty(int fd, t_fd_list **cursor)
 	return (*cursor);
 }
 
-char	*line_and_remains(t_fd_list *cursor)
+char	*line_and_remains(s_fd_list *cursor)
 {
 	char	*line;
 	int		len_nl;
@@ -89,7 +89,7 @@ char	*line_and_remains(t_fd_list *cursor)
 	return (line);
 }
 
-void	read_fd(int fd, t_fd_list *cursor)
+void	read_fd(int fd, s_fd_list *cursor)
 {
 	char	*buf;
 	int		tmp;
@@ -115,8 +115,8 @@ void	read_fd(int fd, t_fd_list *cursor)
 
 char	*get_next_line(int fd)
 {
-	static t_fd_list	*list;
-	t_fd_list			*cursor;
+	static s_fd_list	*list;
+	s_fd_list			*cursor;
 	char				*line;
 
 	if (fd < 0 || BUFFER_SIZE <= 0 || read(fd, 0, 0) < 0)
