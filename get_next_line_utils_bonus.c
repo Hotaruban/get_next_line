@@ -6,11 +6,21 @@
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/07 15:03:12 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/04/14 22:58:29 by jhurpy           ###   ########.fr       */
+/*   Updated: 2023/04/18 08:53:39 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line_bonus.h"
+
+/*
+Ft_realloc reallocate a new memory regarding the size copy the data and
+free the previous pointer.
+Ft_strlen count the len of the string regarding a parameter, 0 until '\0' else
+the function count untill newline +1.
+Find_nl return 1 if the function find new line in the string.
+Ft_strlcpy copy the source in the destination respecting the dstsize.
+Ft_strlcat concatenate the source after the destination respecting the dstsize.
+*/
 
 void	*ft_realloc(void *ptr, size_t old_size, size_t size)
 {
