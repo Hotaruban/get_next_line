@@ -5,12 +5,12 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jhurpy <jhurpy@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/07 15:03:12 by jhurpy            #+#    #+#             */
-/*   Updated: 2023/04/18 08:53:18 by jhurpy           ###   ########.fr       */
+/*   Created: 2023/05/06 16:58:46 by jhurpy            #+#    #+#             */
+/*   Updated: 2023/05/06 16:59:15 by jhurpy           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "get_next_line.h"
+#include "get_next_line_.h"
 
 /*
 Ft_realloc reallocate a new memory regarding the size copy the data and
