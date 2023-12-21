@@ -1,7 +1,7 @@
 # <p align = "center">get_next_line</p>
 
 <p align = "center">
-<a href = ""><img gnl = "get_next_line" src = "get_next_linem.png"></a>
+<a href = "https://github.com/Hotaruban"><img gnl = "get_next_line" src = "get_next_linem.png"></a>
 </p>
 
 The "get_next_line" project holds a special place as one of my favorite endeavors. Instead of opting for the common approach of using arrays, I chose to implement it with linked lists. This decision presented its own set of challenges, especially when seeking assistance from fellow cadets who predominantly worked with arrays. Nonetheless, this experience proved invaluable in my learning journey.
