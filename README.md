@@ -4,8 +4,24 @@
 <a href = "https://github.com/Hotaruban"><img gnl = "get_next_line" src = "get_next_linem.png"></a>
 </p>
 
-The "get_next_line" project holds a special place as one of my favorite endeavors. Instead of opting for the common approach of using arrays, I chose to implement it with linked lists. This decision presented its own set of challenges, especially when seeking assistance from fellow cadets who predominantly worked with arrays. Nonetheless, this experience proved invaluable in my learning journey.
+### The "get_next_line" project challenges participants to implement a function that reads a line from a file descriptor, providing practical insights into input handling and memory allocation in C. In this iteration, participants are encouraged to leverage linked lists to manage multiple file descriptors simultaneously, enhancing their understanding of linked list usage.
 
-This project served as a platform for honing my skills in working with linked lists, understanding the nuances of pointers and pointer manipulation, and mastering the intricacies of memory allocation and deallocation. By tackling the complexities of managing memory efficiently, I not only enhanced my coding proficiency but also gained a deeper insight into the inner workings of memory management in C++.
+### Key Points:
 
-Furthermore, "get_next_line" became a pivotal exercise for incorporating tools like Valgrind into my development process. Leveraging Valgrind, I was able to meticulously scrutinize memory usage, identify potential leaks, and refine my code for optimal performance. Thus, this project not only contributed to my technical skills but also underscored the importance of thorough memory management and debugging practices in software development.
+**Line Reading**: Participants are tasked with creating a function capable of reading a line (up to a newline character) from a specified file descriptor.
+
+**Dynamic Memory Allocation**: Efficient memory usage is crucial. Participants must dynamically allocate memory to store each read line and ensure proper deallocation to prevent memory leaks.
+
+**Buffer Management**: The project involves managing input buffers effectively, especially when dealing with scenarios where a line spans multiple buffer reads.
+
+**Linked List Implementation**: To extend the functionality to handle multiple file descriptors, participants are encouraged to use linked lists. Each file descriptor is associated with its own linked list, allowing for independent line reading.
+
+**File Descriptor Handling**: The function should be adaptable to different file descriptors, showcasing the flexibility of linked list usage in managing multiple input sources.
+
+### Methodology:
+The project encourages participants to deepen their understanding of file I/O, dynamic memory allocation, and buffer management. The addition of linked list implementation serves as an opportunity to explore the benefits of data structures in managing multiple instances of the get_next_line function.
+
+### Assessment:
+Evaluation is based on the accurate and efficient implementation of the get_next_line function, with specific attention to the successful incorporation of linked lists for managing multiple file descriptors. Memory management, edge case handling, and adaptability contribute to the overall assessment.
+
+This version of the "get_next_line" project not only reinforces fundamental skills but also provides an additional layer of complexity by incorporating linked lists, thereby enhancing participants' understanding of data structures and their practical applications in real-world programming scenarios.
